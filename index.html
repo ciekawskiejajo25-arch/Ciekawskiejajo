@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Ciekawskie JAJO</title>
+
+  <!-- Font Awesome CDN -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      background: #fafafa;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      height: 100vh;
+
+      margin: 0;
+
+      padding: 10px;
+
+    }
+
+    #fact-box {
+
+      background: white;
+
+      padding: 30px;
+
+      border-radius: 15px;
+
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+      max-width: 600px;
+
+      width: 100%;
+
+      text-align: center;
+
+    }
+
+    h1 {
+
+      margin-bottom: 20px;
+
+    }
+
+    #fact {
+
+      font-size: 1.2em;
+
+    }
+
+    button {
+
+      margin: 10px 5px;
+
+      padding: 10px 20px;
+
+      border: none;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      font-size: 16px;
+
+      transition: 0.3s;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+    }
+
+    button i {
+
+      font-size: 18px;
+
+    }
+
+    .next-btn {
+
+      background: #0077ff;
+
+      color: white;
+
+    }
+
+    .next-btn:hover {
+
+      background: #005ad4;
+
+    }
+
+    .share-buttons {
+
+      margin-top: 20px;
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      justify-content: center;
+
+    }
+
+    .fb-btn { background: #3b5998; color: white; }
+
+    .fb-btn:hover { background: #2d4373; }
+
+    .tw-btn { background: #1da1f2; color: white; }
+
+    .tw-btn:hover { background: #0d8ddb; }
+
+    .ig-btn { background: #e1306c; color: white; }
+
+    .ig-btn:hover { background: #c2185b; }
+
+
+    @media (max-width: 600px) {
+
+      .share-buttons { flex-direction: column; }
+
+      .share-buttons button { width: 100%; }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="fact-box">
+
+    <h1>🥚 Ciekawskie JAJO</h1>
+
+    <p id="fact">Kliknij przycisk, aby wylosować fakt!</p>
+
+    <button class="next-btn" onclick="newFact()"><i class="fa-solid fa-lightbulb"></i>Następny fakt</button>
+
+
+    <div class="share-buttons">
+
+      <button class="fb-btn" onclick="shareFacebook()"><i class="fab fa-facebook"></i> Facebook</button>
+
+      <button class="tw-btn" onclick="shareTwitter()"><i class="fab fa-x-twitter"></i> Twitter</button>
+
+      <button class="ig-btn" onclick="shareInstagram()"><i class="fab fa-instagram"></i> Instagram</button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+  const facts = [
+
+    "Banany są jagodami, ale truskawki już nie.",
+
+    "Miód nigdy się nie psuje.",
+
+    "Krewetki mają serce w głowie.",
+
+    "Ośmiornice mają trzy serca.",
+
+    "Rekiny istniały przed drzewami.",
+
+    "Najdłuższe słowo w języku polskim ma 54 litery.",
+
+    "Słońce zajmuje 99,86% masy Układu Słonecznego.",
+
+    "Panda może zjeść ponad 12 kg bambusa dziennie.",
+
+    "Motyle smakują stopami.",
+
+    "Żyrafy mają taki sam układ kostny szyi jak człowiek – 7 kręgów.",
+
+    "Koty śpią średnio 70% swojego życia.",
+
+    "Słonie nie potrafią skakać.",
+
+    "Woda kokosowa była używana jako płyn do transfuzji krwi.",
+
+    "Krokodyle nie mogą wystawiać języka.",
+
+    "Ślimaki mogą spać nawet 3 lata.",
+
+    "Pingwiny potrafią pływać szybciej niż większość ryb.",
+
+    "Serce niebieskiego wieloryba waży tyle co mały samochód.",
+
+    "Wikingowie pili z rogów, ale nie tych od zwierząt, tylko zrobionych z drewna.",
+
+    "Niektóre żółwie potrafią oddychać przez odbyt.",
+
+    "Mrówki nigdy nie śpią.",
+
+    "Ziemia jest jedyną planetą, której nazwa nie pochodzi od boga.",
+
+    "Kameleony nie zmieniają koloru, żeby się ukryć, tylko aby regulować temperaturę i komunikować się.",
+
+    "Nosorożec może biegać szybciej niż koń.",
+
+    "W ludzkim ciele jest więcej bakterii niż komórek.",
+
+    "Najstarsze znane drzewo ma ponad 4800 lat.",
+
+    "Delfiny nadają sobie imiona gwizdami.",
+
+    "W Japonii istnieją automaty sprzedające wszystko – nawet kraby.",
+
+    "Cebula była kiedyś używana jako waluta.",
+
+    "Najkrótsza wojna w historii trwała 38 minut (Anglia vs. Zanzibar).",
+
+    "Ludzie i żyrafy mają tyle samo kości w szyi.",
+
+    "Sowy potrafią obracać głowę o 270 stopni.",
+
+    "Krewetki tygrysie mogą być dłuższe niż kot.",
+
+    "Najstarszy pies żył 29 lat.",
+
+    "Ziemia obraca się szybciej na równiku niż na biegunach.",
+
+    "Papugi potrafią żyć ponad 80 lat.",
+
+    "Niektóre ryby chodzą po lądzie.",
+
+    "Komary są odpowiedzialne za więcej zgonów niż jakiekolwiek inne zwierzę.",
+
+    "Dźwięk rozchodzi się szybciej w wodzie niż w powietrzu.",
+
+    "Największy grzyb na świecie zajmuje powierzchnię ponad 9 km².",
+
+    "Woda stanowi około 70% ludzkiego ciała.",
+
+    "Słońce jest około 109 razy większe od Ziemi.",
+
+    "Pierwsza kamera ważyła ponad 400 kg.",
+
+    "Ziemia ma więcej drzew niż gwiazd w Drodze Mlecznej.",
+
+    "Niektóre żaby potrafią zamarznąć i przeżyć.",
+
+    "Koty mają unikalny odcisk nosa, jak ludzie odciski palców.",
+
+    "Największy diament znaleziony na świecie ważył ponad pół kilograma.",
+
+    "Pszczoły tańcem przekazują sobie informacje o jedzeniu.",
+
+    "Świnie nie potrafią patrzeć w niebo.",
+
+    "Jedno drzewo może wytworzyć tlen dla czterech osób.",
+
+    "Rekiny nie mają kości – ich szkielet jest z chrząstki.",
+
+    "Kałamarnica olbrzymia ma oczy wielkości piłki plażowej.",
+
+    "Żółwie żyją dłużej niż większość ludzi.",
+
+    "Leniwce potrafią wstrzymywać oddech na 40 minut.",
+
+    "Najstarsza butelka wina ma ponad 1600 lat.",
+
+    "Żarówka Edisona świeciła 1500 godzin.",
+
+    "Niektóre kangury potrafią pływać.",
+
+    "Na świecie jest więcej kur niż ludzi.",
+
+    "Najstarszy kot dożył 38 lat.",
+
+    "Są ryby, które świecą w ciemności.",
+
+    "Mucha domowa żyje średnio 28 dni.",
+
+    "Największa pizza miała ponad 120 metrów średnicy.",
+
+    "Najdłuższy paznokieć miał ponad 9 metrów.",
+
+    "Świnie potrafią grać w gry wideo ryjem.",
+
+    "Niektóre małpy używają kamieni jako narzędzi.",
+
+    "Żyrafy nie mają strun głosowych.",
+
+    "Człowiek może przeżyć bez jedzenia ponad miesiąc, ale bez wody tylko kilka dni.",
+
+    "Najstarsze buty mają ponad 5000 lat.",
+
+    "Najstarszy instrument muzyczny to flet z kości sprzed 40 tys. lat.",
+
+    "W kosmosie nie ma dźwięku.",
+
+    "Najdłuższe włosy na świecie miały ponad 8 metrów.",
+
+    "Ryby mogą się dławić.",
+
+    "Język wieloryba waży tyle co słoń.",
+
+    "Niektóre papugi potrafią rozpoznać swoje odbicie w lustrze.",
+
+    "Najmniejszy ptak na świecie to koliber pszczeli – waży 2 g.",
+
+    "Kameleony mają niezależnie poruszające się oczy.",
+
+    "Najstarsze znalezisko chleba ma 14 000 lat.",
+
+    "Japońskie ryby koi mogą żyć ponad 200 lat.",
+
+    "Pierwsze okulary wynaleziono w XIII wieku.",
+
+    "Na Marsie zachody słońca są niebieskie.",
+
+    "Woda w stanie stałym (lód) unosi się na wodzie w stanie ciekłym.",
+
+    "Mysz potrafi przecisnąć się przez dziurę wielkości monety.",
+
+    "Niektóre rośliny reagują na dotyk i się zamykają (mimoza).",
+
+    "Najwyższa góra na Ziemi to Mount Everest – 8848 m.",
+
+    "Najgłębsze miejsce na Ziemi to Rów Mariański – 11 034 m.",
+
+    "Świnie potrafią się pocić tylko przez ryjek.",
+
+    "Woda destylowana nie przewodzi prądu.",
+
+    "Niektóre ptaki potrafią spać w locie.",
+
+    "Najstarszy żyjący człowiek miał 122 lata.",
+
+    "Niektóre owady żyją tylko kilka godzin.",
+
+    "Na Antarktydzie istnieją jeziora pod lodem.",
+
+    "Czekolada była kiedyś używana jako waluta.",
+
+    "Koty mają ponad 20 mięśni kontrolujących uszy.",
+
+    "Pierwsze telefony komórkowe ważyły prawie kilogram.",
+
+    "Największe serce na świecie należy do wieloryba.",
+
+    "Świece istniały już 5000 lat temu.",
+
+    "Ziemia waży około 6 sekstylionów ton.",
+
+    "Niektóre ryby potrafią zmieniać płeć.",
+
+    "Największe jajo znosi struś.",
+
+    "Najdłuższa rzeka świata to Nil.",
+
+    "Niektóre meduzy są nieśmiertelne."
+
+  ];
+
+
+  let currentIndex = 0;
+
+
+  function newFact() {
+
+    document.getElementById("fact").textContent = facts[currentIndex];
+
+    currentIndex++;
+
+    if(currentIndex >= facts.length) currentIndex = 0; // wraca na początek
+
+  }
+
+</script>
+
+
+    function newFact() {
+
+      const randomIndex = Math.floor(Math.random() * facts.length);
+
+      document.getElementById("fact").textContent = facts[randomIndex];
+
+    }
+
+
+    function shareFacebook() {
+
+      const fact = document.getElementById("fact").textContent;
+
+      const url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href) + "&quote=" + encodeURIComponent(fact);
+
+      window.open(url, "_blank");
+
+    }
+
+
+    function shareTwitter() {
+
+      const fact = document.getElementById("fact").textContent;
+
+      const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(fact + " #CiekawskieJAJO");
+
+      window.open(url, "_blank");
+
+    }
+
+
+    function shareInstagram() {
+
+      const fact = document.getElementById("fact").textContent;
+
+      navigator.clipboard.writeText(fact).then(() => {
+
+        alert("📋 Fakt został skopiowany do schowka! Wklej go w poście lub stories na Instagramie.");
+
+      });
+
+    }
+
+  </script>
+
+</body>
+
+</html>
+
